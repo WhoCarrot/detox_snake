@@ -1,0 +1,544 @@
+let w, h;
+let direction, food;
+const snake = [];
+const SIZE = 32;
+const API_KEY = "Wuy-4OHKPMPU2WW_-Z0uOIpj2NbPwBLH";
+
+function setup() {
+  setScoreboard();
+  return;
+  // put setup code here
+  createCanvas(500, 500);
+  background(0);
+  w = width / SIZE;
+  h = height / SIZE;
+  restart();
+}
+
+function draw() {
+  return;
+  background(95);
+
+  strokeWeight(0);
+  noStroke();
+  fill(color(255, 255, 255));
+  snake.forEach(({ x, y }) => {
+    rect(x, y, w, h);
+  });
+
+  fill(color(0, 255, 0));
+  rect(food.x + w / 4, food.y + h / 4, w / 2, h / 2);
+
+  if (frameCount % 5 !== 0) return;
+
+  const head = snake[snake.length - 1];
+
+  if (direction === undefined) return;
+
+  if (head.x === food.x && head.y === food.y) {
+    generateFood();
+  } else {
+    snake.splice(0, 1);
+  }
+
+  switch (direction) {
+    case UP_ARROW:
+      moveSnake({ x: head.x, y: head.y - h });
+      break;
+    case RIGHT_ARROW:
+      moveSnake({ x: head.x + w, y: head.y });
+      break;
+    case DOWN_ARROW:
+      moveSnake({ x: head.x, y: head.y + h });
+      break;
+    case LEFT_ARROW:
+      moveSnake({ x: head.x - w, y: head.y });
+      break;
+  }
+}
+
+function restart() {
+  snake.splice(0, snake.length - 1);
+  snake.push({ x: w * 3, y: h * 3 });
+  generateFood();
+}
+
+function moveSnake(part) {
+  if (isDead(part.x, part.y)) return restart();
+  snake.push(part);
+}
+
+function isDead(x, y) {
+  for (const part of snake) {
+    if (part.x === x && part.y === y) return true;
+  }
+
+  if (x < 0 || x > width) return true;
+  if (y < 0 || y > height) return true;
+  return false;
+}
+
+function generateFood() {
+  const x = round(random(SIZE - 1)) * w;
+  const y = round(random(SIZE - 1)) * h;
+  food = { x, y };
+}
+
+function keyPressed() {
+  if ([UP_ARROW, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW].indexOf(keyCode) > -1) {
+    // kan het wel??
+    switch (keyCode) {
+      case UP_ARROW:
+        if (direction === DOWN_ARROW) return;
+        break;
+      case RIGHT_ARROW:
+        if (direction === LEFT_ARROW) return;
+        break;
+      case DOWN_ARROW:
+        if (direction === UP_ARROW) return;
+        break;
+      case LEFT_ARROW:
+        if (direction === RIGHT_ARROW) return;
+        break;
+    }
+
+    direction = keyCode;
+  }
+}
+
+function getScoreboard() {}
+
+function setScoreboard() {
+  paste.setDevKey(API_KEY);
+  // $.ajax({
+  //   url: `https://pastebin.com/api/api_post.php?api_option=paste&api_dev_key=${API_KEY}&api_paste_code=${"test"}`,
+  //   type: "POST",
+  //   success: console.log
+  // })
+  // const Http = new XMLHttpRequest();
+  // const url = ;
+  // Http.open("POST", url);
+  // Http.send();
+  // 'api_option=paste&api_user_key='.$api_user_key.'&api_paste_private='.$api_paste_private.'&api_paste_name='.$api_paste_name.'&api_paste_expire_date='.$api_paste_expire_date.'&api_paste_format='.$api_paste_format.'&api_dev_key='.$api_dev_key.'&api_paste_code='.$ap
+
+  // console.log(url);
+  //   httpPost(url, function (result) {
+
+  //     console.log({result});
+  //   });
+
+  //   fetch(url, { // // Your POST endpoint
+  //         method: 'POST'
+  //     })
+  //     .then(response => console.log(response.json)) // if the response is json object
+  //     .then(success => console.log(success)) // return success response if request is sucessfull
+  //     .catch(error => console.log('An error occurred: ', error)) // listen for error occurring...
+}
+let w, h;
+let direction, food;
+const snake = [];
+const SIZE = 32;
+const API_KEY = "Wuy-4OHKPMPU2WW_-Z0uOIpj2NbPwBLH";
+
+function setup() {
+  setScoreboard();
+  return;
+  // put setup code here
+  createCanvas(500, 500);
+  background(0);
+  w = width / SIZE;
+  h = height / SIZE;
+  restart();
+}
+
+function draw() {
+  return;
+  background(95);
+
+  strokeWeight(0);
+  noStroke();
+  fill(color(255, 255, 255));
+  snake.forEach(({ x, y }) => {
+    rect(x, y, w, h);
+  });
+
+  fill(color(0, 255, 0));
+  rect(food.x + w / 4, food.y + h / 4, w / 2, h / 2);
+
+  if (frameCount % 5 !== 0) return;
+
+  const head = snake[snake.length - 1];
+
+  if (direction === undefined) return;
+
+  if (head.x === food.x && head.y === food.y) {
+    generateFood();
+  } else {
+    snake.splice(0, 1);
+  }
+
+  switch (direction) {
+    case UP_ARROW:
+      moveSnake({ x: head.x, y: head.y - h });
+      break;
+    case RIGHT_ARROW:
+      moveSnake({ x: head.x + w, y: head.y });
+      break;
+    case DOWN_ARROW:
+      moveSnake({ x: head.x, y: head.y + h });
+      break;
+    case LEFT_ARROW:
+      moveSnake({ x: head.x - w, y: head.y });
+      break;
+  }
+}
+
+function restart() {
+  snake.splice(0, snake.length - 1);
+  snake.push({ x: w * 3, y: h * 3 });
+  generateFood();
+}
+
+function moveSnake(part) {
+  if (isDead(part.x, part.y)) return restart();
+  snake.push(part);
+}
+
+function isDead(x, y) {
+  for (const part of snake) {
+    if (part.x === x && part.y === y) return true;
+  }
+
+  if (x < 0 || x > width) return true;
+  if (y < 0 || y > height) return true;
+  return false;
+}
+
+function generateFood() {
+  const x = round(random(SIZE - 1)) * w;
+  const y = round(random(SIZE - 1)) * h;
+  food = { x, y };
+}
+
+function keyPressed() {
+  if ([UP_ARROW, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW].indexOf(keyCode) > -1) {
+    // kan het wel??
+    switch (keyCode) {
+      case UP_ARROW:
+        if (direction === DOWN_ARROW) return;
+        break;
+      case RIGHT_ARROW:
+        if (direction === LEFT_ARROW) return;
+        break;
+      case DOWN_ARROW:
+        if (direction === UP_ARROW) return;
+        break;
+      case LEFT_ARROW:
+        if (direction === RIGHT_ARROW) return;
+        break;
+    }
+
+    direction = keyCode;
+  }
+}
+
+function getScoreboard() {}
+
+function setScoreboard() {
+  paste.setDevKey(API_KEY);
+  // $.ajax({
+  //   url: `https://pastebin.com/api/api_post.php?api_option=paste&api_dev_key=${API_KEY}&api_paste_code=${"test"}`,
+  //   type: "POST",
+  //   success: console.log
+  // })
+  // const Http = new XMLHttpRequest();
+  // const url = ;
+  // Http.open("POST", url);
+  // Http.send();
+  // 'api_option=paste&api_user_key='.$api_user_key.'&api_paste_private='.$api_paste_private.'&api_paste_name='.$api_paste_name.'&api_paste_expire_date='.$api_paste_expire_date.'&api_paste_format='.$api_paste_format.'&api_dev_key='.$api_dev_key.'&api_paste_code='.$ap
+
+  // console.log(url);
+  //   httpPost(url, function (result) {
+
+  //     console.log({result});
+  //   });
+
+  //   fetch(url, { // // Your POST endpoint
+  //         method: 'POST'
+  //     })
+  //     .then(response => console.log(response.json)) // if the response is json object
+  //     .then(success => console.log(success)) // return success response if request is sucessfull
+  //     .catch(error => console.log('An error occurred: ', error)) // listen for error occurring...
+}
+let w, h;
+let direction, food;
+const snake = [];
+const SIZE = 32;
+const API_KEY = "Wuy-4OHKPMPU2WW_-Z0uOIpj2NbPwBLH";
+
+function setup() {
+  setScoreboard();
+  return;
+  // put setup code here
+  createCanvas(500, 500);
+  background(0);
+  w = width / SIZE;
+  h = height / SIZE;
+  restart();
+}
+
+function draw() {
+  return;
+  background(95);
+
+  strokeWeight(0);
+  noStroke();
+  fill(color(255, 255, 255));
+  snake.forEach(({ x, y }) => {
+    rect(x, y, w, h);
+  });
+
+  fill(color(0, 255, 0));
+  rect(food.x + w / 4, food.y + h / 4, w / 2, h / 2);
+
+  if (frameCount % 5 !== 0) return;
+
+  const head = snake[snake.length - 1];
+
+  if (direction === undefined) return;
+
+  if (head.x === food.x && head.y === food.y) {
+    generateFood();
+  } else {
+    snake.splice(0, 1);
+  }
+
+  switch (direction) {
+    case UP_ARROW:
+      moveSnake({ x: head.x, y: head.y - h });
+      break;
+    case RIGHT_ARROW:
+      moveSnake({ x: head.x + w, y: head.y });
+      break;
+    case DOWN_ARROW:
+      moveSnake({ x: head.x, y: head.y + h });
+      break;
+    case LEFT_ARROW:
+      moveSnake({ x: head.x - w, y: head.y });
+      break;
+  }
+}
+
+function restart() {
+  snake.splice(0, snake.length - 1);
+  snake.push({ x: w * 3, y: h * 3 });
+  generateFood();
+}
+
+function moveSnake(part) {
+  if (isDead(part.x, part.y)) return restart();
+  snake.push(part);
+}
+
+function isDead(x, y) {
+  for (const part of snake) {
+    if (part.x === x && part.y === y) return true;
+  }
+
+  if (x < 0 || x > width) return true;
+  if (y < 0 || y > height) return true;
+  return false;
+}
+
+function generateFood() {
+  const x = round(random(SIZE - 1)) * w;
+  const y = round(random(SIZE - 1)) * h;
+  food = { x, y };
+}
+
+function keyPressed() {
+  if ([UP_ARROW, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW].indexOf(keyCode) > -1) {
+    // kan het wel??
+    switch (keyCode) {
+      case UP_ARROW:
+        if (direction === DOWN_ARROW) return;
+        break;
+      case RIGHT_ARROW:
+        if (direction === LEFT_ARROW) return;
+        break;
+      case DOWN_ARROW:
+        if (direction === UP_ARROW) return;
+        break;
+      case LEFT_ARROW:
+        if (direction === RIGHT_ARROW) return;
+        break;
+    }
+
+    direction = keyCode;
+  }
+}
+
+function getScoreboard() {}
+
+function setScoreboard() {
+  paste.setDevKey(API_KEY);
+  // $.ajax({
+  //   url: `https://pastebin.com/api/api_post.php?api_option=paste&api_dev_key=${API_KEY}&api_paste_code=${"test"}`,
+  //   type: "POST",
+  //   success: console.log
+  // })
+  // const Http = new XMLHttpRequest();
+  // const url = ;
+  // Http.open("POST", url);
+  // Http.send();
+  // 'api_option=paste&api_user_key='.$api_user_key.'&api_paste_private='.$api_paste_private.'&api_paste_name='.$api_paste_name.'&api_paste_expire_date='.$api_paste_expire_date.'&api_paste_format='.$api_paste_format.'&api_dev_key='.$api_dev_key.'&api_paste_code='.$ap
+
+  // console.log(url);
+  //   httpPost(url, function (result) {
+
+  //     console.log({result});
+  //   });
+
+  //   fetch(url, { // // Your POST endpoint
+  //         method: 'POST'
+  //     })
+  //     .then(response => console.log(response.json)) // if the response is json object
+  //     .then(success => console.log(success)) // return success response if request is sucessfull
+  //     .catch(error => console.log('An error occurred: ', error)) // listen for error occurring...
+}
+let w, h;
+let direction, food;
+const snake = [];
+const SIZE = 32;
+const API_KEY = "Wuy-4OHKPMPU2WW_-Z0uOIpj2NbPwBLH";
+
+function setup() {
+  setScoreboard();
+  return;
+  // put setup code here
+  createCanvas(500, 500);
+  background(0);
+  w = width / SIZE;
+  h = height / SIZE;
+  restart();
+}
+
+function draw() {
+  return;
+  background(95);
+
+  strokeWeight(0);
+  noStroke();
+  fill(color(255, 255, 255));
+  snake.forEach(({ x, y }) => {
+    rect(x, y, w, h);
+  });
+
+  fill(color(0, 255, 0));
+  rect(food.x + w / 4, food.y + h / 4, w / 2, h / 2);
+
+  if (frameCount % 5 !== 0) return;
+
+  const head = snake[snake.length - 1];
+
+  if (direction === undefined) return;
+
+  if (head.x === food.x && head.y === food.y) {
+    generateFood();
+  } else {
+    snake.splice(0, 1);
+  }
+
+  switch (direction) {
+    case UP_ARROW:
+      moveSnake({ x: head.x, y: head.y - h });
+      break;
+    case RIGHT_ARROW:
+      moveSnake({ x: head.x + w, y: head.y });
+      break;
+    case DOWN_ARROW:
+      moveSnake({ x: head.x, y: head.y + h });
+      break;
+    case LEFT_ARROW:
+      moveSnake({ x: head.x - w, y: head.y });
+      break;
+  }
+}
+
+function restart() {
+  snake.splice(0, snake.length - 1);
+  snake.push({ x: w * 3, y: h * 3 });
+  generateFood();
+}
+
+function moveSnake(part) {
+  if (isDead(part.x, part.y)) return restart();
+  snake.push(part);
+}
+
+function isDead(x, y) {
+  for (const part of snake) {
+    if (part.x === x && part.y === y) return true;
+  }
+
+  if (x < 0 || x > width) return true;
+  if (y < 0 || y > height) return true;
+  return false;
+}
+
+function generateFood() {
+  const x = round(random(SIZE - 1)) * w;
+  const y = round(random(SIZE - 1)) * h;
+  food = { x, y };
+}
+
+function keyPressed() {
+  if ([UP_ARROW, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW].indexOf(keyCode) > -1) {
+    // kan het wel??
+    switch (keyCode) {
+      case UP_ARROW:
+        if (direction === DOWN_ARROW) return;
+        break;
+      case RIGHT_ARROW:
+        if (direction === LEFT_ARROW) return;
+        break;
+      case DOWN_ARROW:
+        if (direction === UP_ARROW) return;
+        break;
+      case LEFT_ARROW:
+        if (direction === RIGHT_ARROW) return;
+        break;
+    }
+
+    direction = keyCode;
+  }
+}
+
+function getScoreboard() {}
+
+function setScoreboard() {
+  paste.setDevKey(API_KEY);
+  // $.ajax({
+  //   url: `https://pastebin.com/api/api_post.php?api_option=paste&api_dev_key=${API_KEY}&api_paste_code=${"test"}`,
+  //   type: "POST",
+  //   success: console.log
+  // })
+  // const Http = new XMLHttpRequest();
+  // const url = ;
+  // Http.open("POST", url);
+  // Http.send();
+  // 'api_option=paste&api_user_key='.$api_user_key.'&api_paste_private='.$api_paste_private.'&api_paste_name='.$api_paste_name.'&api_paste_expire_date='.$api_paste_expire_date.'&api_paste_format='.$api_paste_format.'&api_dev_key='.$api_dev_key.'&api_paste_code='.$ap
+
+  // console.log(url);
+  //   httpPost(url, function (result) {
+
+  //     console.log({result});
+  //   });
+
+  //   fetch(url, { // // Your POST endpoint
+  //         method: 'POST'
+  //     })
+  //     .then(response => console.log(response.json)) // if the response is json object
+  //     .then(success => console.log(success)) // return success response if request is sucessfull
+  //     .catch(error => console.log('An error occurred: ', error)) // listen for error occurring...
+}
